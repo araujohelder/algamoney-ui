@@ -8,8 +8,8 @@
       <div class="ui-g-12 ui-fluid">
         <label>Nome</label>
         <input pInputText type="text" name="nome" name="nome" ngModel #nome="ngModel" required minlength="5" >
-        <app-message [control]="nome" error="required" text="Informe uma Nome."></app-message>
-        <app-message [control]="nome" error="minlength" text="Mínimo de {{nome.errors?.minlength?.requiredLength}} caracteres."></app-message>
+          <app-message [control]="nome" error="required" text="Informe uma Nome."></app-message>
+          <app-message [control]="nome" error="minlength" text="Mínimo de {{nome.errors?.minlength?.requiredLength}} caracteres."></app-message>
       </div>
 
       <div class="ui-g-12 ui-md-9 ui-fluid">
