@@ -1,6 +1,6 @@
 <div class="ui-g-12">
   <p-dataTable [value]="lancamentos" [paginator]="true" [rows]="5"
-      [responsive]="true">
+      [responsive]="true" emptyMessage="Nenhum lancamento encontrado">
     <p-column field="pessoa" header="Pessoa"></p-column>
     <p-column field="descricao" header="Descrição"></p-column>
     <p-column field="dataVencimento" header="Vencimento" styleClass="col-data">
