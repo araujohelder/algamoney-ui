@@ -1,28 +1,42 @@
+import { PessoaService, PessoaFiltro } from '../pessoa.service';
 import { Component, OnInit } from '@angular/core';
+import { LazyLoadEvent } from 'primeng/components/common/api';
 
 @Component({
   selector: 'app-pessoa-pesquisa',
   templateUrl: './pessoa-pesquisa.component.html',
   styleUrls: ['./pessoa-pesquisa.component.css']
 })
-export class PessoaPesquisaComponent {
-  pessoas = [
-    { nome: 'Fernando da silva Chaves', cidade: 'Uberlândia', estado: 'MG', status: true },
-    { nome: 'Maria Regina Santos Medeiros', cidade: 'São Paulo', estado: 'SP', status: true},
-    { nome: 'Gustavo Feitosa Machado', cidade: 'Fortaleza', estado: 'CE', status: 'false' },
-    { nome: 'Guilhermina Souza Oliveira Machado', cidade: 'Fortaleza', estado: 'CE', status: true },
-    { nome: 'Joana Freitas Azevedo Lima', cidade: 'Curitiba', estado: 'PR', status: true },
-    { nome: 'Felipe de Souza Marinho', cidade: 'Santos', estado: 'SP', status: false },
-    { nome: 'Fátima de Azevedo Lima', cidade: 'Rio de Janeiro', estado: 'RJ', status: true },
-    { nome: 'Debora Menezes da Silva', cidade: 'Niterói', estado: 'RJ', status: true },
-    { nome: 'Justino Esperança Filho', cidade: 'Belo Horizonte', estado: 'MG', status: false },
-    { nome: 'Amanda de Souza Ramos', cidade: 'Aracati', estado: 'CE', status: true }
-  ];
+export class PessoaPesquisaComponent implements OnInit {
+
+  filtro = new PessoaFiltro();
+  totalRegistros = 0;
+  pessoas = [];
+
+  constructor(private pessoaService: PessoaService) {}
+
+  ngOnInit() {
+    this.pesquisar();
+  }
 
   getStatus(status: string): string  {
     if (status) {
       return 'Ativo';
     }
     return 'Inativo';
+  }
+
+  pesquisar(pagina = 0) {
+    this.filtro.pagina = pagina;
+    this.pessoaService.pesquisar(this.filtro)
+    .then(resultado => {
+      this.pessoas = resultado.content;
+      this.totalRegistros = resultado.totalElements;
+    });
+  }
+
+  aoMudarPagina(event: LazyLoadEvent) {
+    const pagina = event.first / event.rows;
+    this.pesquisar(pagina);
   }
 }

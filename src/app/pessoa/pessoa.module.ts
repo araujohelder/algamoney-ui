@@ -13,12 +13,10 @@ import { InputTextareaModule } from 'primeng/components/inputtextarea/inputtexta
 import { CalendarModule } from 'primeng/components/calendar/calendar';
 import { DropdownModule } from 'primeng/components/dropdown/dropdown';
 
-import { PessoaGridComponent } from './pessoa-grid/pessoa-grid.component';
 import { PessoaPesquisaComponent } from './pessoa-pesquisa/pessoa-pesquisa.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 import { SharedModule } from '../shared/shared.module';
-
-
+import { PessoaService } from './pessoa.service';
 
 @NgModule({
   imports: [
@@ -38,12 +36,12 @@ import { SharedModule } from '../shared/shared.module';
   ],
   declarations: [
     PessoaCadastroComponent,
-    PessoaPesquisaComponent,
-    PessoaGridComponent
+    PessoaPesquisaComponent
   ],
   exports: [
     PessoaCadastroComponent,
     PessoaPesquisaComponent
-  ]
+  ],
+  providers: [PessoaService]
 })
 export class PessoaModule { }
