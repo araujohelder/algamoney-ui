@@ -16,21 +16,21 @@
 
   <div class="ui-g-12">
     <p-dataTable [value]="pessoas" [responsive]="true"
-      emptyMessage="Nenhum registro encontrado"
+      emptyMessage="Nenhum registro encontrado" #tabela
       [paginator]="true" [rows]="filtro.itensPorPagina" [lazy]="true"
       [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)">
       <p-column field="nome" header="Nome"></p-column>
-      <p-column field="cidade" header="Cidade"></p-column>
-      <p-column field="estado" header="Estado"></p-column>
+      <p-column field="endereco.cidade" header="Cidade"></p-column>
+      <p-column field="endereco.estado" header="Estado"></p-column>
       <p-column header="Status">
           <ng-template pTemplate="body" let-pessoa="rowData">
-             <a href="javascript:;" [pTooltip]="pessoa.status ? 'Desativar' : 'Ativar' " tooltipPosition="top">{{pessoa.status ? 'Ativo' : 'Inativo'}}</a>
+             <a href="javascript:;" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar' " tooltipPosition="top">{{pessoa.ativo ? 'Ativo' : 'Inativo'}}</a>
           </ng-template>
       </p-column>
       <p-column styleClass="col-acoes" header="Ações">
-        <ng-template pTemplate="body">
+        <ng-template pTemplate="body" let-pessoa="rowData">
             <a pButton icon="fa-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-            <button pButton icon="fa-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+            <button pButton icon="fa-trash" pTooltip="Excluir" tooltipPosition="top" (click)=confirmarExclusao(pessoa)></button>
         </ng-template>
       </p-column>
     </p-dataTable>
